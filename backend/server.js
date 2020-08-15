@@ -5,9 +5,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 4000;
 const todoRoutes = express.Router();
+const userRoutes = express.Router();
 
 let Todo = require('./todo.model');
-
+let User = require('./user.model');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -67,7 +68,19 @@ todoRoutes.route('/add').post(function(req, res) {
         });
 });
 
+userRoutes.route('/register').post(function(req, res){
+    let user = new User(req.body);
+    user.save()
+        .then(todo => {
+            res.status(200).json({'User': 'User registered successfully.'});
+        })
+        .catch(err => {
+            res.status(400).send('Unable to register that user at this time.');
+        });
+});
+
 app.use('/todos', todoRoutes);
+app.use('/user', userRoutes);
 
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
