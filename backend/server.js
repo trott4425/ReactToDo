@@ -7,8 +7,8 @@ const PORT = 4000;
 const todoRoutes = express.Router();
 const userRoutes = express.Router();
 
-let Todo = require('./todo.model');
-let User = require('./user.model');
+let Todo = require('./models/todo.model');
+let User = require('./models/user.model');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -53,7 +53,7 @@ todoRoutes.route('/update/:id').post(function(req, res) {
 todoRoutes.route('/:id').get(function(req, res) {
     let id = req.params.id;
     Todo.findById(id, function(err, todo) {
-        res.json(todo);
+        res.json(todo); //TODO: error handling
     });
 });
 
@@ -66,6 +66,20 @@ todoRoutes.route('/add').post(function(req, res) {
         .catch(err => {
             res.status(400).send('adding new todo failed');
         });
+});
+
+todoRoutes.route('/delete/:id').get(function(req, res){
+    let id = req.params.id;
+    Todo.findByIdAndDelete(id, function(err, todo){
+        if(err){
+            console.log(err);
+            res.status(400).send('Deleting todo failed');
+        } 
+        else {
+            res.status(200).send('Deleting todo successful');
+        }
+
+    })
 });
 
 userRoutes.route('/register').post(function(req, res){

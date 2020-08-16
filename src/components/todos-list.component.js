@@ -10,6 +10,9 @@ const Todo = props => (
         <td>
             <Link to={"/edit/"+props.todo._id}>Edit</Link>
         </td>
+        <td>
+            <Link to={"delete/"+props.todo._id}>Delete</Link>
+        </td>
     </tr>
 )
 
