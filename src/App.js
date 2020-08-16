@@ -7,8 +7,10 @@ import {BrowserRouter as Router, Route, Link } from "react-router-dom";
 import CreateTodo from "./components/create-todo.component";
 import EditTodo from "./components/edit-todo.component";
 import TodosList from "./components/todos-list.component";
-import RegisterUser from "./components/register-user.component";
 import DeleteTodo from "./components/delete-todo.component";
+
+import RegisterUser from "./components/register-user.component";
+import LoginUser from "./components/login-user.component";
 
 //CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -35,6 +37,9 @@ class App extends Component {
               <li className="navbar-item">
                 <Link to="/register" className="nav-link">Register User </Link>
               </li>
+              <li>
+                <Link to="/login" className="nav-link">Login </Link>
+              </li>
             </ul>
           </div>
         </nav>
@@ -44,6 +49,7 @@ class App extends Component {
         <Route path="/create" component={CreateTodo} />
         <Route path="/delete/:id" component={DeleteTodo} />
         <Route path="/register" component={RegisterUser} />
+        <Route path="/login" component={LoginUser} />
       </div>
     </Router>
     );

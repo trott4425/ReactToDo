@@ -14,9 +14,10 @@ export default class DeleteTodo extends Component {
 
     componentDidMount() {
         axios.get('http://localhost:4000/todos/delete/'+this.props.match.params.id)
-            .then(response => {
+        .then(res => {
+                console.log(res.data);
                 this.setState({
-                    content: response.data
+                    content: res.data
                 })   
             })
             .catch(function (error) {
@@ -32,8 +33,9 @@ export default class DeleteTodo extends Component {
     
     render() {
         return (
-            <div>
-                <h3 align="center">Delete Todo</h3>
+            <div style={{marginTop: 10}}>
+                <h3>Deleting Todo</h3>
+                {this.state.content}
             </div>
         )
     }

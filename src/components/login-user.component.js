@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React,{ Component } from 'react';
 import axios from 'axios';
 
-export default class RegisterUser extends Component {
+export default class Login extends Component{
     constructor(props){
         super(props);
 
@@ -26,14 +26,15 @@ export default class RegisterUser extends Component {
             password: e.target.value
         });
     }
-    onSubmit(e) {
+    
+    onSubmit(e){
         e.preventDefault();
         const obj = {
             username: this.state.username,
             password: this.state.password
         };
 
-        axios.post('http://localhost:4000/user/register/', obj)
+        axios.post('http://localhost:4000/user/login/', obj)
             .then(res => console.log(res.data));
         
         this.props.history.push('/');
@@ -42,7 +43,7 @@ export default class RegisterUser extends Component {
     render() {
         return (
             <div>
-                <h3 align="center">Register a new user</h3>
+                <h3 align="center">Login</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>Username: </label>
@@ -50,7 +51,6 @@ export default class RegisterUser extends Component {
                                 className="form-control"
                                 value={this.state.username}
                                 onChange={this.onChangeUsername}
-                                required
                                 />
                     </div>
                     <div className="form-group">
@@ -60,14 +60,13 @@ export default class RegisterUser extends Component {
                                 className="form-control"
                                 value={this.state.password}
                                 onChange={this.onChangePassword}
-                                required
                                 />
                     </div>    
 
                     <br />
 
                     <div className="form-group">
-                        <input type="submit" value="Register" className="btn btn-primary" />
+                        <input type="submit" value="Login" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

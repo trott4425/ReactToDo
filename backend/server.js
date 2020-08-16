@@ -76,7 +76,7 @@ todoRoutes.route('/delete/:id').get(function(req, res){
             res.status(400).send('Deleting todo failed');
         } 
         else {
-            res.status(200).send('Deleting todo successful');
+            res.status(200).send('Deleted todo successfully.');
         }
 
     })
@@ -92,6 +92,21 @@ userRoutes.route('/register').post(function(req, res){
             res.status(400).send('Unable to register that user at this time.');
         });
 });
+
+userRoutes.route('/login').post(function(req, res){
+    console.log(req.body);
+    User.findOne({ username: req.body.username }, function(err, user) {
+        if(!user)
+            res.status(400).send('Login failed.');
+        else
+            user.comparePassword(req.body.password, function(err, isMatch) {
+                if(err)
+                    res.status(400).send('Login failed.');
+
+                res.status(200).send('Login succeeded');
+            });
+    });
+})
 
 app.use('/todos', todoRoutes);
 app.use('/user', userRoutes);
