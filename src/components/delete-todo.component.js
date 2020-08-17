@@ -13,7 +13,7 @@ export default class DeleteTodo extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/todos/delete/'+this.props.match.params.id)
+        axios.get('http://127.0.0.1:4000/todos/delete/'+this.props.match.params.id)
         .then(res => {
                 console.log(res.data);
                 this.setState({

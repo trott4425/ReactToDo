@@ -5,7 +5,7 @@ SALT_WORK_FACTOR = 10;
 
 
 var UserSchema = new Schema({
-    username: { type: String, required: true, index: { unique: true } },
+    username: { type: String, required: true, trim: true, index: { unique: true } },
     password: { type: String, required: true }
 });
 
@@ -31,11 +31,12 @@ UserSchema.pre('save', function(next) {
     });
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
-};
+UserSchema.methods.isValidPassword = async function(password){
+    const user = this;
+    //Hashes the password sent by the user for login and checks if the hashed password stored in the
+    //database matches the one sent. Returns true if it does else false.
+    const compare = await bcrypt.compare(password, user.password);
+    return compare;
+  }
 
 module.exports = mongoose.model('User', UserSchema);

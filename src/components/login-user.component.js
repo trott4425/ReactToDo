@@ -34,7 +34,7 @@ export default class Login extends Component{
             password: this.state.password
         };
 
-        axios.post('http://localhost:4000/user/login/', obj)
+        axios.post('http://127.0.0.1:4000/user/login/', obj, {withCredentials: true})
             .then(res => console.log(res.data));
         
         this.props.history.push('/');

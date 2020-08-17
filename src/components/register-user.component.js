@@ -33,7 +33,7 @@ export default class RegisterUser extends Component {
             password: this.state.password
         };
 
-        axios.post('http://localhost:4000/user/register/', obj)
+        axios.post('http://127.0.0.1:4000/user/register/', obj)
             .then(res => console.log(res.data));
         
         this.props.history.push('/');
