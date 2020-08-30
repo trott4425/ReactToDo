@@ -35,6 +35,7 @@ passport.use('login', new localStrategy({
     //If the passwords match, it returns a value of true.
     const validate = await user.isValidPassword(password);
     if( !validate ){
+        console.log('Invalid password');
       return done(null, false, { message : 'Wrong Password'});
     }
     //Send the user information to the next middleware
